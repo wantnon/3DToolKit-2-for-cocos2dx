@@ -40,71 +40,23 @@ bool CtestLayer::init(){
     lightSource->setPosition3D(cc3dv4(60, 90, 120, 1));
     //program
     Cc3dProgram*program=c3dGetProgram_c3dClassicLighting();
-    //material
-    Cc3dMaterial*material=new Cc3dMaterial();
-    material->autorelease();
-    material->init();
-    material->setSpecular(cc3dv4(0.5, 0.5, 0.5, 1));
-    material->setShininess(10);
-    //texture
-    CCTexture2D*tex_logo=CCTextureCache::sharedTextureCache()->addImage("logo.png");
-    CCTexture2D*tex_logo2=CCTextureCache::sharedTextureCache()->addImage("logo2.png");
 
-    //mesh
-    Cc3dMesh*mesh_ball=c3dCreateBallMesh(1, 20, 10, cc3dv4(1, 0.5, 0, 1), cc3dv4(0, 1, 0, 1));
-    mesh_ball->setTexture(tex_logo);
-    mesh_ball->setMaterial(material);
-    mesh_ball->setNodeName("mesh_ball");
-    Cc3dMesh*mesh_box=c3dCreateBoxMesh(1,cc3dv4(1, 0, 0, 1),cc3dv4(0, 1, 0, 1),cc3dv4(0, 0, 1, 1),cc3dv4(1, 1, 0, 1),
-                                         cc3dv4(0, 0, 1, 1),cc3dv4(1, 1, 0, 1),cc3dv4(1, 0, 0, 1),cc3dv4(0, 1, 0, 1));
-    mesh_box->setTexture(tex_logo);
-    mesh_box->setMaterial(material);
-    mesh_box->setNodeName("mesh_box");
-    Cc3dMesh*mesh_cone=c3dCreateConeMesh(1, 2.7, 20, 10, true, cc3dv4(1, 0, 0, 1), cc3dv4(0, 1, 0, 1));
-    mesh_cone->setTexture(tex_logo);
-    mesh_cone->setMaterial(material);
-    mesh_cone->setNodeName("mesh_cone");
-
-  
-    //sprite
-  /*  const int spriteCount=1;
-    vector<Cc3dMesh*> meshList;
-    meshList.push_back(mesh_box);
-    vector<Cc3dVector4> posList;
-    posList.push_back(cc3dv4(0, 0, 0, 1));
-    for(int i=0;i<spriteCount;i++){
-        Cc3dActor* sprite3d=new Cc3dActor();
-        sprite3d->autorelease();
-        sprite3d->init();
-        sprite3d->setPosition3D(posList[i]);
-        sprite3d->addMesh(meshList[i]);
-        sprite3d->setLightSource(lightSource);
-        sprite3d->setCamera3D(camera);
-        sprite3d->setPassUnifoCallback(passUnifoCallback_classicLighting);
-        sprite3d->setProgram(program);
-        sprite3d->setNodeName("sprite3d");
-        m_root3d->addChild(sprite3d,0);
-        m_sprite3dList.push_back(sprite3d);
-    }*/
-    const int spriteCount=1;
-    for(int i=0;i<spriteCount;i++){
-        Cc3dActor* sprite3d=c3dSimpleLoadActor("toolKitRes/model/apple_cfc");
-        sprite3d->setLightSource(lightSource);
-        sprite3d->setCamera3D(camera);
-        sprite3d->setPassUnifoCallback(passUnifoCallback_classicLighting);
-        sprite3d->setProgram(program);
-        sprite3d->setNodeName("sprite3d");
-        m_root3d->addChild(sprite3d,0);
-        m_sprite3dList.push_back(sprite3d);
+    //actor3D
+    m_actor3D=c3dSimpleLoadActor("toolKitRes/model/apple_cfc");
+    m_actor3D->setLightSource(lightSource);
+    m_actor3D->setCamera3D(camera);
+    m_actor3D->setPassUnifoCallback(passUnifoCallback_classicLighting);
+    m_actor3D->setProgram(program);
+    m_actor3D->setNodeName("actor3D");
+    m_root3d->addChild(m_actor3D,0);
         
-        sprite3d->scale3D(0.05, 0.05, 0.05);
-        sprite3d->setPosition3D(Cc3dVector4(0,-1.5,0,1));
-    }
-    //submit sprite3ds
-    for(int i=0;i<(int)m_sprite3dList.size();i++){
-        Cc3dActor*sprite3d=m_sprite3dList[i];
-        sprite3d->submit(GL_STATIC_DRAW);
-    }
+    m_actor3D->scale3D(0.05, 0.05, 0.05);
+    m_actor3D->setPosition3D(Cc3dVector4(0,-1.5,0,1));
+    
+    //submit
+
+    m_actor3D->submit(GL_STATIC_DRAW);
+    
 
     
 
@@ -176,27 +128,20 @@ void CtestLayer::switchProjModeCallBack(CCObject *senderz, cocos2d::extension::C
 void CtestLayer::transformCallBack(CCObject *senderz, CCControlEvent controlEvent){
     if(m_isDoUpdate){
         //restore inital matrix
-        int nSprite3d=(int)m_sprite3dList.size();
-        for(int i=0;i<nSprite3d;i++){
-            m_sprite3dList[i]->setTransform3D(initalMatList[i]);
-        }
+        m_actor3D->setTransform3D(m_initialMat);
         //stop update
         m_isDoUpdate=false;
         
     }else{
         //store inital matrix
-        initalMatList.clear();
-        int nSprite3d=(int)m_sprite3dList.size();
-        for(int i=0;i<nSprite3d;i++){
-            initalMatList.push_back(m_sprite3dList[i]->getTransform3D());
-        }
+        m_initialMat=m_actor3D->getTransform3D();
         //start update
         m_isDoUpdate=true;
     }
 }
 void CtestLayer::update(float dt){
     if(m_isDoUpdate==false)return;
-    m_sprite3dList[0]->rotate3D(cc3dv4(0, 1, 0, 0), 120*dt);
+    m_actor3D->rotate3D(cc3dv4(0, 1, 0, 0), 120*dt);
 
     
 }
