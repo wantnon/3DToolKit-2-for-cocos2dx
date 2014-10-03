@@ -1,4 +1,4 @@
-3D ToolKit for cocos2dx
+3D ToolKit 2 for cocos2dx
 ==========
 by yang chao (wantnon), 2014-1-9  
 
