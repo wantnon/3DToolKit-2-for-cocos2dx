@@ -23,6 +23,7 @@ i will update code to http://git.oschina.net/wantnon2/the-3DToolKit-for-cocos2dx
 screenshot:    
   
 ![screenshot](http://git.oschina.net/wantnon2/the-3DToolKit-for-cocos2dx/raw/master/screenshots/test1.png)  
+![screenshot](http://git.oschina.net/wantnon2/the-3DToolKit-for-cocos2dx/raw/master/screenshots/test2.png) 
   
 qq group: 338565878   
   
