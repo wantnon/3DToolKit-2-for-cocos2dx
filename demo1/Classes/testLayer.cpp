@@ -66,8 +66,8 @@ bool CtestLayer::init(){
     mesh_cone->setNodeName("mesh_cone");
 
   
-    //sprite
-    const int spriteCount=3;
+    //actors
+    const int actorCount=3;
     vector<Cc3dMesh*> meshList;
     meshList.push_back(mesh_box);
     meshList.push_back(mesh_cone);
@@ -76,24 +76,24 @@ bool CtestLayer::init(){
     posList.push_back(cc3dv4(-2.5, 0, 0, 1));
     posList.push_back(cc3dv4(0, -1, 0, 1));
     posList.push_back(cc3dv4(2.5, 0, 0, 1));
-    for(int i=0;i<spriteCount;i++){
-        Cc3dActor* sprite3d=new Cc3dActor();
-        sprite3d->autorelease();
-        sprite3d->init();
-        sprite3d->setPosition3D(posList[i]);
-        sprite3d->addMesh(meshList[i]);
-        sprite3d->setLightSource(lightSource);
-        sprite3d->setCamera3D(camera);
-        sprite3d->setPassUnifoCallback(passUnifoCallback_classicLighting);
-        sprite3d->setProgram(program);
-        sprite3d->setNodeName("sprite3d");
-        m_root3d->addChild(sprite3d,0);
-        m_sprite3dList.push_back(sprite3d);
+    for(int i=0;i<actorCount;i++){
+        Cc3dActor* actor3D=new Cc3dActor();
+        actor3D->autorelease();
+        actor3D->init();
+        actor3D->setPosition3D(posList[i]);
+        actor3D->addMesh(meshList[i]);
+        actor3D->setLightSource(lightSource);
+        actor3D->setCamera3D(camera);
+        actor3D->setPassUnifoCallback(passUnifoCallback_classicLighting);
+        actor3D->setProgram(program);
+        actor3D->setNodeName("actor3d");
+        m_root3d->addChild(actor3D,0);
+        m_actor3dList.push_back(actor3D);
     }
-    //submit sprite3ds
-    for(int i=0;i<(int)m_sprite3dList.size();i++){
-        Cc3dActor*sprite3d=m_sprite3dList[i];
-        sprite3d->submit(GL_STATIC_DRAW);
+    //submit actors
+    for(int i=0;i<(int)m_actor3dList.size();i++){
+        Cc3dActor*actor3D=m_actor3dList[i];
+        actor3D->submit(GL_STATIC_DRAW);
     }
 
     
@@ -166,9 +166,9 @@ void CtestLayer::switchProjModeCallBack(CCObject *senderz, cocos2d::extension::C
 void CtestLayer::transformCallBack(CCObject *senderz, CCControlEvent controlEvent){
     if(m_isDoUpdate){
         //restore inital matrix
-        int nSprite3d=(int)m_sprite3dList.size();
-        for(int i=0;i<nSprite3d;i++){
-            m_sprite3dList[i]->setTransform3D(initalMatList[i]);
+        int nActor3D=(int)m_actor3dList.size();
+        for(int i=0;i<nActor3D;i++){
+            m_actor3dList[i]->setTransform3D(initalMatList[i]);
         }
         //stop update
         m_isDoUpdate=false;
@@ -176,9 +176,9 @@ void CtestLayer::transformCallBack(CCObject *senderz, CCControlEvent controlEven
     }else{
         //store inital matrix
         initalMatList.clear();
-        int nSprite3d=(int)m_sprite3dList.size();
-        for(int i=0;i<nSprite3d;i++){
-            initalMatList.push_back(m_sprite3dList[i]->getTransform3D());
+        int nActor3D=(int)m_actor3dList.size();
+        for(int i=0;i<nActor3D;i++){
+            initalMatList.push_back(m_actor3dList[i]->getTransform3D());
         }
         //start update
         m_isDoUpdate=true;
@@ -186,10 +186,10 @@ void CtestLayer::transformCallBack(CCObject *senderz, CCControlEvent controlEven
 }
 void CtestLayer::update(float dt){
     if(m_isDoUpdate==false)return;
-    m_sprite3dList[0]->rotateRelativeToParent3D(cc3dv4(0, 1, 0, 0), 120*dt);
-    m_sprite3dList[0]->rotate3D(cc3dv4(1, 0, 0, 0), 120*dt);
-    m_sprite3dList[2]->rotateRelativeToParent3D(cc3dv4(0, 1, 0, 0), 120*dt);
-    m_sprite3dList[2]->rotate3D(cc3dv4(0, 1, 0, 0), 240*dt);
+    m_actor3dList[0]->rotateRelativeToParent3D(cc3dv4(0, 1, 0, 0), 120*dt);
+    m_actor3dList[0]->rotate3D(cc3dv4(1, 0, 0, 0), 120*dt);
+    m_actor3dList[2]->rotateRelativeToParent3D(cc3dv4(0, 1, 0, 0), 120*dt);
+    m_actor3dList[2]->rotate3D(cc3dv4(0, 1, 0, 0), 240*dt);
 
     
 }

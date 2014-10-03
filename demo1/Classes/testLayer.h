@@ -67,9 +67,9 @@ public:
     float m_B;//angle vertical
     //3d root
     Cc3dRoot*m_root3d;//3D root node
-    //3d sprites
-    vector<Cc3dActor*> m_sprite3dList;//list of 3D sprite
-    vector<Cc3dMatrix4> initalMatList;//initial transform matrixs of 3D sprites
+    //3d actors
+    vector<Cc3dActor*> m_actor3dList;//list of 3D actors
+    vector<Cc3dMatrix4> initalMatList;//initial transform matrixs of 3D actors
 
     
     
