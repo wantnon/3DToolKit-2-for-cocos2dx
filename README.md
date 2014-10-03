@@ -9,7 +9,7 @@ the ToolKit based on cocos2d-x 2.2.0.
 features currently available:  
 1, vector and matrix operations.  
 2, extended 3D camera. (support perspective and orthographic projection mode)  
-3, 3D Sprite. (support space transformation, change mesh, and shader)   
+3, 3D Actor. (support space transformation, change mesh, and shader)   
 4, extended shader program and uniform callback.  
    
 note: because 3DToolKit is based on cocos2dx 2.x and written in pure c++, so it is cross platform. but here i only configured the iOS project. so if you want too run it on other platform, you should configure the corresponding project by yourself.      
