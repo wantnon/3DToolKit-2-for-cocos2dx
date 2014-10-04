@@ -19,10 +19,16 @@ class Cc3dMaterial:public CCObject
 {
 public:
     Cc3dMaterial(){
+        
+        
+        m_shininess=2.0;//what is the default value of shininess in opengl?
+        
+        
         //the default values are ref from <<OpenGL Programming Guide>> sixth edition
         m_ambient.init(0.2, 0.2, 0.2, 1);
         m_diffuse.init(0.8, 0.8, 0.8, 1);
         m_specular.init(0, 0, 0, 1);
+       
     }
     virtual~Cc3dMaterial(){
         
