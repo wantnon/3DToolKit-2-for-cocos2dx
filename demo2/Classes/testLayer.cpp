@@ -11,6 +11,8 @@
 bool CtestLayer::init(){
     CCSize visibleSize = CCDirector::sharedDirector()->getVisibleSize();
     CCPoint origin = CCDirector::sharedDirector()->getVisibleOrigin();
+    CCSize winSize=CCDirector::sharedDirector()->getWinSize();
+    float ZEye=CCDirector::sharedDirector()->getZEye();
     //enable touch
 	setTouchEnabled( true );
     //enable update
@@ -27,6 +29,7 @@ bool CtestLayer::init(){
     
     //camera
     Cc3dCamera*camera=m_root3d->getCamera3D();
+    m_r=(winSize.height/2)/tanf(camera->getFovy()/2*M_PI/180);
     camera->setEyePos(cc3dv4(0, 0, m_r, 1));
     camera->setCenter(cc3dv4(0, 0, 0, 1));
     camera->setUp(cc3dv4(0, 1, 0, 0));
@@ -37,7 +40,7 @@ bool CtestLayer::init(){
     lightSource->init();
     m_root3d->addChild(lightSource);
     lightSource->setAmbient(cc3dv4(0.8, 0.8, 0.8, 1));
-    lightSource->setPosition3D(cc3dv4(60, 90, 120, 1));
+    lightSource->setPosition3D(cc3dv4(600, 900, 1200, 1));
     //program
     Cc3dProgram*program=c3dGetProgram_c3dClassicLighting();
 
@@ -50,8 +53,8 @@ bool CtestLayer::init(){
     m_actor3D->setNodeName("actor3D");
     m_root3d->addChild(m_actor3D,0);
         
-    m_actor3D->scale3D(0.05, 0.05, 0.05);
-    m_actor3D->setPosition3D(Cc3dVector4(0,-1.5,0,1));
+    m_actor3D->scale3D(4, 4, 4);
+    m_actor3D->setPosition3D(Cc3dVector4(0,-130,0,1));
     
     //submit
 

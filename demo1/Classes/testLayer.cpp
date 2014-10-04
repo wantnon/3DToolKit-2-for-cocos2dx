@@ -11,6 +11,7 @@
 bool CtestLayer::init(){
     CCSize visibleSize = CCDirector::sharedDirector()->getVisibleSize();
     CCPoint origin = CCDirector::sharedDirector()->getVisibleOrigin();
+    CCSize winSize=CCDirector::sharedDirector()->getWinSize();
     //enable touch
 	setTouchEnabled( true );
     //enable update
@@ -27,6 +28,7 @@ bool CtestLayer::init(){
     
     //camera
     Cc3dCamera*camera=m_root3d->getCamera3D();
+    m_r=(winSize.height/2)/tanf(camera->getFovy()/2*M_PI/180);
     camera->setEyePos(cc3dv4(0, 0, m_r, 1));
     camera->setCenter(cc3dv4(0, 0, 0, 1));
     camera->setUp(cc3dv4(0, 1, 0, 0));
@@ -37,7 +39,7 @@ bool CtestLayer::init(){
     lightSource->init();
     m_root3d->addChild(lightSource);
     lightSource->setAmbient(cc3dv4(0.8, 0.8, 0.8, 1));
-    lightSource->setPosition3D(cc3dv4(60, 90, 120, 1));
+    lightSource->setPosition3D(cc3dv4(600, 900, 1200, 1));
     //program
     Cc3dProgram*program=c3dGetProgram_c3dClassicLighting();
     //material
@@ -51,16 +53,16 @@ bool CtestLayer::init(){
     CCTexture2D*tex_logo2=CCTextureCache::sharedTextureCache()->addImage("logo2.png");
 
     //mesh
-    Cc3dMesh*mesh_ball=c3dCreateBallMesh(1, 20, 10, cc3dv4(1, 0.5, 0, 1), cc3dv4(0, 1, 0, 1));
+    Cc3dMesh*mesh_ball=c3dCreateBallMesh(100, 20, 10, cc3dv4(1, 0.5, 0, 1), cc3dv4(0, 1, 0, 1));
     mesh_ball->setTexture(tex_logo2);
     mesh_ball->setMaterial(material);
     mesh_ball->setNodeName("mesh_ball");
-    Cc3dMesh*mesh_box=c3dCreateBoxMesh(1,cc3dv4(1, 0, 0, 1),cc3dv4(0, 1, 0, 1),cc3dv4(0, 0, 1, 1),cc3dv4(1, 1, 0, 1),
+    Cc3dMesh*mesh_box=c3dCreateBoxMesh(100,cc3dv4(1, 0, 0, 1),cc3dv4(0, 1, 0, 1),cc3dv4(0, 0, 1, 1),cc3dv4(1, 1, 0, 1),
                                          cc3dv4(0, 0, 1, 1),cc3dv4(1, 1, 0, 1),cc3dv4(1, 0, 0, 1),cc3dv4(0, 1, 0, 1));
     mesh_box->setTexture(tex_logo);
     mesh_box->setMaterial(material);
     mesh_box->setNodeName("mesh_box");
-    Cc3dMesh*mesh_cone=c3dCreateConeMesh(1, 2.7, 20, 10, true, cc3dv4(1, 0, 0, 1), cc3dv4(0, 1, 0, 1));
+    Cc3dMesh*mesh_cone=c3dCreateConeMesh(100, 270, 20, 10, true, cc3dv4(1, 0, 0, 1), cc3dv4(0, 1, 0, 1));
     mesh_cone->setTexture(tex_logo);
     mesh_cone->setMaterial(material);
     mesh_cone->setNodeName("mesh_cone");
@@ -73,9 +75,9 @@ bool CtestLayer::init(){
     meshList.push_back(mesh_cone);
     meshList.push_back(mesh_ball);
     vector<Cc3dVector4> posList;
-    posList.push_back(cc3dv4(-2.5, 0, 0, 1));
-    posList.push_back(cc3dv4(0, -1, 0, 1));
-    posList.push_back(cc3dv4(2.5, 0, 0, 1));
+    posList.push_back(cc3dv4(-250, 0, 0, 1));
+    posList.push_back(cc3dv4(0, -100, 0, 1));
+    posList.push_back(cc3dv4(250, 0, 0, 1));
     for(int i=0;i<actorCount;i++){
         Cc3dActor* actor3D=new Cc3dActor();
         actor3D->autorelease();

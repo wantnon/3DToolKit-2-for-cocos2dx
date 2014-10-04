@@ -29,8 +29,8 @@ public:
         m_zNear=0.5;
         m_zFar=1500;
         
-        const float w=11;
-        const float h=w*winSize.height/winSize.width;
+        const float w=winSize.width;//11;
+        const float h=winSize.height;//w*winSize.height/winSize.width;
         m_range.init(-w/2, -w/2+w, -h/2, -h/2+h,
                      -1024,//yeah, better to use negative value
                      1024);
