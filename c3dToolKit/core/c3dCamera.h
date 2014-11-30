@@ -26,7 +26,7 @@ public:
         CCSize winSize=CCDirector::sharedDirector()->getWinSize();
         m_fovy=60;
         m_aspect=winSize.width/winSize.height;
-        m_zNear=0.5;
+        m_zNear=1;//554/2;//0.5;
         m_zFar=1500;
         
         const float w=winSize.width;//11;

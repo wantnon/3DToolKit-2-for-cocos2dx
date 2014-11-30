@@ -22,4 +22,16 @@ Cc3dMatrix4 calculateTranslateMatrix(const Cc3dVector4&translate);
 Cc3dMatrix4 calculateScaleMatrix(float kx,float ky,float kz);
 Cc3dMatrix4 calculatePerspectiveProjectionMatrix(float fovy,float aspect,float zNear,float zFar);
 Cc3dMatrix4 calculateOrthoProjectionMatrix(float left,float right,float bottom,float top,float near,float far);
+/*Cc3dVector4 convertFromViewportSpaceToWorldSpace(const Cc3dVector4&winPos,
+                                                 const Cc3dMatrix4&projectionViewInverse,// inverse(projectionMat*viewMat)
+                                                 const float viewport[4]);*/
+Cc3dVector4 convertFromViewportSpaceToWorldSpace(const Cc3dVector4&winPos,
+                                                 const Cc3dMatrix4&projMat,
+                                                 const Cc3dMatrix4&viewMat,
+                                                 const float viewport[4]);
+bool isLine3dIntersectWithTriangle3d(const Cc3dVector4&start,const Cc3dVector4&dir,
+                                     const Cc3dVector4&p0,const Cc3dVector4&p1,const Cc3dVector4&p2);
+Cc3dVector4 getIntersectPointOfLine3dIntersectWithPlane3d(const Cc3dVector4&start,const Cc3dVector4&dir,
+                                     const Cc3dVector4&p,const Cc3dVector4&norm);
+
 #endif /* defined(__HelloCpp__c3dGLMath__) */

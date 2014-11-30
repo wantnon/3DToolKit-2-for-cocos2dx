@@ -50,6 +50,7 @@ public:
     void setTexture(CCTexture2D*texture);
     void setMaterial(Cc3dMaterial*material);
     void setSubMeshData(Cc3dSubMeshData*subMeshData);
+    Cc3dSubMeshData*getSubMeshData(){return m_subMeshData;}
     void setIndexVBO(Cc3dIndexVBO3d*indexVBO);
     
     void submit(GLenum usage);

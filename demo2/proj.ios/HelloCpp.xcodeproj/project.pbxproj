@@ -2466,7 +2466,7 @@
 					"\"$(SRCROOT)/../../../../platform/ios/Simulation\"",
 				);
 				INFOPLIST_FILE = "HelloCpp-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../../cocos2dx/platform/third_party/ios/libraries\"",
@@ -2517,7 +2517,7 @@
 					"\"$(SRCROOT)/../../../../platform/ios/Simulation\"",
 				);
 				INFOPLIST_FILE = "HelloCpp-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../../cocos2dx/platform/third_party/ios/libraries\"",

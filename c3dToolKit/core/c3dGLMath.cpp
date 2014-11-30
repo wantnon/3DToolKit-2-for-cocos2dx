@@ -151,3 +151,112 @@ Cc3dMatrix4 calculateOrthoProjectionMatrix(float left,float right,float bottom,f
     return Cc3dMatrix4(m);
 
 }
+Cc3dVector4 convertFromViewportSpaceToWorldSpace(const Cc3dVector4&winPos,
+                                                 const Cc3dMatrix4&projMat,
+                                                 const Cc3dMatrix4&viewMat,
+                                                 const float viewport[4]){
+    
+    float viewportX=viewport[0];
+    float viewportY=viewport[1];
+    float viewportW=viewport[2];
+    float viewportH=viewport[3];
+    
+    Cc3dVector4 t_winPos=winPos;
+    // Map x and y from window coordinates
+    t_winPos.setx((t_winPos.x()-viewportX)/viewportW);
+    t_winPos.sety((t_winPos.y()-viewportY)/viewportH);
+    // Map to range -1 to 1
+    //?????????????????
+    t_winPos.setx(t_winPos.x()*2-1);
+    t_winPos.sety(t_winPos.y()*2-1);
+    t_winPos.setz(t_winPos.z()*2-1);
+    //?????????????????
+    Cc3dMatrix4 projMatInverse=inverse(projMat);
+    Cc3dMatrix4 viewMatInverse=inverse(viewMat);
+    Cc3dVector4 eyeSpacePos=projMatInverse*t_winPos;
+    Cc3dVector4 worldPos=viewMatInverse*eyeSpacePos;
+//    worldPos.print();
+    if (worldPos.w() == 0.0){
+        assert(false);
+    }
+    //??????
+    worldPos.setx(worldPos.x()/worldPos.w());
+    worldPos.sety(worldPos.y()/worldPos.w());
+    worldPos.setz(worldPos.z()/worldPos.w());
+    worldPos.setw(1);
+    return worldPos;
+}
+/*
+Cc3dVector4 convertFromViewportSpaceToWorldSpace(const Cc3dVector4&winPos,
+                                                 const Cc3dMatrix4&projectionViewInverse,// inverse(projectionMat*viewMat)
+                                                 const float viewport[4]){
+    float viewportX=viewport[0];
+    float viewportY=viewport[1];
+    float viewportW=viewport[2];
+    float viewportH=viewport[3];
+    
+    Cc3dVector4 t_winPos=winPos;
+    // Map x and y from window coordinates
+    t_winPos.setx((t_winPos.x()-viewportX)/viewportW);
+    t_winPos.sety((t_winPos.y()-viewportY)/viewportH);
+    // Map to range -1 to 1
+    //??????????��???????
+    t_winPos.setx(t_winPos.x()*2-1);
+    t_winPos.sety(t_winPos.y()*2-1);
+    t_winPos.setz(t_winPos.z()*2-1);
+    //???????????????
+    Cc3dVector4 worldPos=projectionViewInverse*t_winPos;
+    worldPos.print();
+    if (worldPos.w() == 0.0){
+        assert(false);
+    }
+    //??????
+    worldPos.setx(worldPos.x()/worldPos.w());
+    worldPos.sety(worldPos.y()/worldPos.w());
+    worldPos.setz(worldPos.z()/worldPos.w());
+    worldPos.setw(1);
+    return worldPos;
+}*/
+Cc3dVector4 getIntersectPointOfLine3dIntersectWithPlane3d(const Cc3dVector4&start,const Cc3dVector4&dir,
+                                  const Cc3dVector4&p,const Cc3dVector4&norm)
+//dir not need to be normalized
+//norm not need to be normalized
+{
+    //line3d:
+    //               x-startx=dirx*t
+    //               y-starty=diry*t
+    //               z-startz=dirz*t
+    //plan3d:
+    //              normx*(x-px)+normy*(y-py)+normz*(z-pz)=0
+    //solve:
+    //              t=-B/A
+    //              where A=normx*dirx+normy*diry+normz*dirz
+    //                           B=normx*(startx-px)+normy*(starty-py)+normz*(startz-pz)
+    float A=norm.x()*dir.x()+norm.y()*dir.y()+norm.z()*dir.z();
+    float B=norm.x()*(start.x()-p.x())+norm.y()*(start.y()-p.y())+norm.z()*(start.z()-p.z());
+    float t=-B/A;
+    float x=dir.x()*t+start.x();
+    float y=dir.y()*t+start.y();
+    float z=dir.z()*t+start.z();
+    return Cc3dVector4(x,y,z,1);
+}
+bool isLine3dIntersectWithTriangle3d(const Cc3dVector4&start,const Cc3dVector4&dir,
+                                     const Cc3dVector4&p0,const Cc3dVector4&p1,const Cc3dVector4&p2){
+
+    Cc3dVector4 triNormNE=cross(p1-p0, p2-p1);//normNE is not normalized normal
+    Cc3dVector4 intersectPointOfLine3dAndTri3d=getIntersectPointOfLine3dIntersectWithPlane3d(start, dir, p0, triNormNE);
+    Cc3dVector4&p=intersectPointOfLine3dAndTri3d;
+    //if p is in triangle p0p1p2
+    Cc3dVector4 crossP0P1_P0P=cross(p1-p0, p-p0);
+    Cc3dVector4 crossP1P2_P1P=cross(p2-p1, p-p1);
+    Cc3dVector4 crossP2P0_P2P=cross(p0-p2, p-p2);
+    float dot_crossP0P1_P0P_triNormNE=dot(crossP0P1_P0P, triNormNE);
+    float dot_crossP1P2_P1P_triNormNE=dot(crossP1P2_P1P, triNormNE);
+    float dot_crossP2P0_P2P_triNormNE=dot(crossP2P0_P2P, triNormNE);
+    
+    if(dot_crossP0P1_P0P_triNormNE>0&&dot_crossP1P2_P1P_triNormNE>0&&dot_crossP2P0_P2P_triNormNE>0){
+        return true;
+    }else{
+        return false;
+    }
+}

@@ -10,31 +10,31 @@
 	<string>HelloCpp</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>CB7DF5F8-79BF-46D8-9EDB-AE51E4D5DB78</key>
-		<string>https://github.com/wantnon/ripple-gpu</string>
+		<key>079531F95FE3C3FADDA9E64487A7A6E61C480268</key>
+		<string>https://github.com/wantnon2/3DToolKit-2-for-cocos2dx.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>HelloCpp/proj.ios/HelloCpp.xcodeproj/project.xcworkspace</string>
+	<string>demo2/proj.ios/HelloCpp.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>CB7DF5F8-79BF-46D8-9EDB-AE51E4D5DB78</key>
+		<key>079531F95FE3C3FADDA9E64487A7A6E61C480268</key>
 		<string>../../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/wantnon/ripple-gpu</string>
+	<string>https://github.com/wantnon2/3DToolKit-2-for-cocos2dx.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>CB7DF5F8-79BF-46D8-9EDB-AE51E4D5DB78</string>
+	<string>079531F95FE3C3FADDA9E64487A7A6E61C480268</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>CB7DF5F8-79BF-46D8-9EDB-AE51E4D5DB78</string>
+			<string>079531F95FE3C3FADDA9E64487A7A6E61C480268</string>
 			<key>IDESourceControlWCCName</key>
-			<string>trunk</string>
+			<string>3DToolKit2ForCocos2dx</string>
 		</dict>
 	</array>
 </dict>
