@@ -4,7 +4,7 @@ by yang chao (wantnon), 2014-10-3
 
 3D ToolKit2 for cocos2dx is the update version of 3DToolKit for cocos2dx(http://git.oschina.net/wantnon2/the-3DToolKit-for-cocos2dx). it is a simple 3D extension for cocos2d-x, provide an easy way to create 3D graph in cocos2dx 2.x environment.  
   
-the ToolKit based on cocos2d-x 2.2.0.  (now 3DToolKit2 for cocos2dx 3.x is available: https://github.com/wantnon2/_3DToolKit2-for-cocos2dx-3x)  
+the ToolKit based on cocos2d-x 2.2.0.  (now 3DToolKit2 for cocos2dx 3.x is available, see:https://github.com/wantnon2/_3DToolKit2-for-cocos2dx-3x)  
    
 features currently available:  
 1, vector and matrix operations.  
